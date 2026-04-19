@@ -1,0 +1,22 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Phone Body -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M37,24h34c3.3,0 6,2.7 6,6v48c0,3.3 -2.7,6 -6,6H37c-3.3,0 -6,-2.7 -6,-6V30C31,26.7 33.7,24 37,24z" />
+    <!-- Screen -->
+    <path
+        android:fillColor="#212121"
+        android:pathData="M34,31h40v41h-40z" />
+    <!-- The Battery Bar (Batterieleiste) -->
+    <path
+        android:fillColor="#4CAF50"
+        android:pathData="M34,31h40v4h-40z" />
+    <!-- Top Detail -->
+    <path
+        android:fillColor="#E0E0E0"
+        android:pathData="M49,27h10v1h-10z" />
+</vector>

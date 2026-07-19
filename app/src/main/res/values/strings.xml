@@ -1,3 +1,53 @@
 <resources>
     <string name="app_name">Batterieleiste</string>
+    <string name="dashboard_title">Batterieleiste</string>
+    <string name="settings_gear">Einstellungen</string>
+    <string name="nav_activation">Aktivierung &amp; Stabilität</string>
+    <string name="nav_bar_style">Balken-Stil &amp; Anzeige</string>
+    <string name="nav_app_theme">App-Design</string>
+    <string name="battery_status_charging">Lädt</string>
+    <string name="battery_status_unknown">Unbekannt</string>
+    <string name="battery_health_good">Gut</string>
+    <string name="remaining_calculating">Berechne...</string>
+
+    <string name="activation_title">Aktivierung</string>
+    <string name="service_activate">Dienst aktivieren</string>
+    <string name="service_running">Läuft im Hintergrund</string>
+    <string name="service_stopped">Dienst ist gestoppt</string>
+    <string name="permissions_header">Berechtigungen</string>
+    <string name="perm_overlay_title">Überlagerung</string>
+    <string name="perm_overlay_desc">Erlaubt das Zeichnen über anderen Apps</string>
+    <string name="perm_notif_title">Benachrichtigungen</string>
+    <string name="perm_notif_desc">Hält den Dienst im Hintergrund stabil</string>
+    <string name="perm_battery_title">Akku-Optimierung</string>
+    <string name="perm_battery_desc">Verhindert das automatische Stoppen der App</string>
+
+    <string name="app_theme_title">App-Design</string>
+    <string name="app_theme_desc">Wähle ein Thema für die App-Oberfläche:</string>
+    <string name="theme_dark">Dunkel</string>
+    <string name="theme_light">Hell</string>
+    <string name="theme_ocean">Ocean</string>
+    <string name="theme_forest">Forest</string>
+    <string name="preview_label">Vorschau</string>
+
+    <string name="bar_style_title">Balken-Stil</string>
+    <string name="presets_header">Presets</string>
+    <string name="mode_colors_header">Modus &amp; Farben</string>
+    <string name="ring_mode_label">Ring-Modus (Kamera)</string>
+    <string name="dynamic_colors_label">Dynamische Farben</string>
+    <string name="notch_handling_label">Notch-Handling</string>
+    <string name="position_header">Position</string>
+    <string name="pos_top">Oben</string>
+    <string name="pos_bottom">Unten</string>
+    <string name="metrics_header">Maße &amp; Sichtbarkeit</string>
+    <string name="thickness_label">Balkendicke</string>
+    <string name="transparency_label">Transparenz</string>
+
+    <string name="alerts_header">Akku-Alarme</string>
+    <string name="alert_full_label">Voll-geladen Alarm (100%)</string>
+    <string name="alert_low_label">Akku-schwach Alarm (15%)</string>
+    <string name="auto_hide_header">Automatisches Ausblenden</string>
+    <string name="hide_lockscreen_label">Auf Sperrbildschirm ausblenden</string>
+
+    <string name="back">Zurück</string>
 </resources>

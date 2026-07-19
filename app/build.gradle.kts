@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
@@ -6,18 +8,27 @@ plugins {
 
 android {
     namespace = "com.example.batterieleiste"
-    compileSdk {
-        version = release(36) {
-            minorApiLevel = 1
-        }
-    }
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.example.batterieleiste"
         minSdk = 24
-        targetSdk = 36
-        versionCode = 1
-        versionName = "1.0"
+        targetSdk = 35
+        
+        val versionPropsFile = file("version.properties")
+        if (!versionPropsFile.exists()) {
+            versionPropsFile.writeText("VERSION_CODE=1")
+        }
+        val props = Properties()
+        versionPropsFile.inputStream().use { props.load(it) }
+        val code = props.getProperty("VERSION_CODE").toInt()
+        
+        versionCode = code
+        versionName = "1.0.$code"
+
+        // Erhöhe Code für den nächsten Build
+        props.setProperty("VERSION_CODE", (code + 1).toString())
+        versionPropsFile.outputStream().use { props.store(it, null) }
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -32,11 +43,26 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
     buildFeatures {
         compose = true
+    }
+}
+
+kotlin {
+    jvmToolchain(21)
+}
+
+androidComponents {
+    onVariants { variant ->
+        val vName = android.defaultConfig.versionName ?: "unknown"
+        variant.outputs.forEach { output ->
+            if (output is com.android.build.api.variant.impl.VariantOutputImpl) {
+                output.outputFileName.set("Batterieleiste_v${vName}.apk")
+            }
+        }
     }
 }
 

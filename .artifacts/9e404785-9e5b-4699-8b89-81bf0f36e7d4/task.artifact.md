@@ -1,0 +1,7 @@
+- [ ] Setup Localization (Strings extraction)
+- [ ] Update `SettingsRepository` and `SettingsViewModel` with new keys
+- [ ] Implement Quick Settings Tile (`BatteryBarTileService`)
+- [ ] Update `BatteryForegroundService` (Alerts, Lockscreen detection, Stats)
+- [ ] Update UI in `SettingsScreen.kt` (Live Preview, new toggles)
+- [ ] Register Tile Service in `AndroidManifest.xml`
+- [ ] Final verification and build

@@ -18,12 +18,15 @@ class SettingsRepository(private val context: Context) {
         val LOW_BATTERY_THRESHOLD = intPreferencesKey("low_battery_threshold")
         val MEDIUM_BATTERY_THRESHOLD = intPreferencesKey("medium_battery_threshold")
         val SELECTED_GRADIENT_INDEX = intPreferencesKey("selected_gradient_index")
-        val CHARGING_ANIMATION_INDEX = intPreferencesKey("charging_animation_index")
         val BAR_POSITION = intPreferencesKey("bar_position") // 0: Top, 1: Bottom
         val AUTO_HIDE_FULLSCREEN = booleanPreferencesKey("auto_hide_fullscreen")
         val USE_DYNAMIC_COLORS = booleanPreferencesKey("use_dynamic_colors")
         val USE_NOTCH_HANDLING = booleanPreferencesKey("use_notch_handling")
         val APP_THEME_INDEX = intPreferencesKey("app_theme_index")
+        val USE_LEVEL_COLORS = booleanPreferencesKey("use_level_colors")
+        val HIDE_ON_LOCKSCREEN = booleanPreferencesKey("hide_on_lockscreen")
+        val ALERT_FULL_BATTERY = booleanPreferencesKey("alert_full_battery")
+        val ALERT_LOW_BATTERY = booleanPreferencesKey("alert_low_battery")
         
         // Ring Mode Settings
         val USE_RING_MODE = booleanPreferencesKey("use_ring_mode")
@@ -35,7 +38,6 @@ class SettingsRepository(private val context: Context) {
         val SAVED_THICKNESS = intPreferencesKey("saved_thickness")
         val SAVED_TRANSPARENCY = floatPreferencesKey("saved_transparency")
         val SAVED_GRADIENT = intPreferencesKey("saved_gradient")
-        val SAVED_ANIMATION = intPreferencesKey("saved_animation")
         val SAVED_DYNAMIC_COLORS = booleanPreferencesKey("saved_dynamic_colors")
         val SAVED_RING_MODE = booleanPreferencesKey("saved_ring_mode")
     }
@@ -46,12 +48,15 @@ class SettingsRepository(private val context: Context) {
     val lowBatteryThreshold: Flow<Int> = context.dataStore.data.map { it[LOW_BATTERY_THRESHOLD] ?: 15 }
     val mediumBatteryThreshold: Flow<Int> = context.dataStore.data.map { it[MEDIUM_BATTERY_THRESHOLD] ?: 30 }
     val selectedGradientIndex: Flow<Int> = context.dataStore.data.map { it[SELECTED_GRADIENT_INDEX] ?: 0 }
-    val chargingAnimationIndex: Flow<Int> = context.dataStore.data.map { it[CHARGING_ANIMATION_INDEX] ?: 0 }
     val barPosition: Flow<Int> = context.dataStore.data.map { it[BAR_POSITION] ?: 0 }
     val autoHideFullscreen: Flow<Boolean> = context.dataStore.data.map { it[AUTO_HIDE_FULLSCREEN] ?: false }
     val useDynamicColors: Flow<Boolean> = context.dataStore.data.map { it[USE_DYNAMIC_COLORS] ?: false }
     val useNotchHandling: Flow<Boolean> = context.dataStore.data.map { it[USE_NOTCH_HANDLING] ?: false }
+    val useLevelColors: Flow<Boolean> = context.dataStore.data.map { it[USE_LEVEL_COLORS] ?: false }
     val appThemeIndex: Flow<Int> = context.dataStore.data.map { it[APP_THEME_INDEX] ?: 0 }
+    val hideOnLockscreen: Flow<Boolean> = context.dataStore.data.map { it[HIDE_ON_LOCKSCREEN] ?: false }
+    val alertFullBattery: Flow<Boolean> = context.dataStore.data.map { it[ALERT_FULL_BATTERY] ?: false }
+    val alertLowBattery: Flow<Boolean> = context.dataStore.data.map { it[ALERT_LOW_BATTERY] ?: false }
 
     // Ring Mode Accessors
     val useRingMode: Flow<Boolean> = context.dataStore.data.map { it[USE_RING_MODE] ?: false }
@@ -65,12 +70,15 @@ class SettingsRepository(private val context: Context) {
     suspend fun setLowBatteryThreshold(threshold: Int) = context.dataStore.edit { it[LOW_BATTERY_THRESHOLD] = threshold }
     suspend fun setMediumBatteryThreshold(threshold: Int) = context.dataStore.edit { it[MEDIUM_BATTERY_THRESHOLD] = threshold }
     suspend fun setSelectedGradientIndex(index: Int) = context.dataStore.edit { it[SELECTED_GRADIENT_INDEX] = index }
-    suspend fun setChargingAnimationIndex(index: Int) = context.dataStore.edit { it[CHARGING_ANIMATION_INDEX] = index }
     suspend fun setBarPosition(position: Int) = context.dataStore.edit { it[BAR_POSITION] = position }
     suspend fun setAutoHideFullscreen(autoHide: Boolean) = context.dataStore.edit { it[AUTO_HIDE_FULLSCREEN] = autoHide }
     suspend fun setUseDynamicColors(use: Boolean) = context.dataStore.edit { it[USE_DYNAMIC_COLORS] = use }
     suspend fun setUseNotchHandling(use: Boolean) = context.dataStore.edit { it[USE_NOTCH_HANDLING] = use }
+    suspend fun setUseLevelColors(use: Boolean) = context.dataStore.edit { it[USE_LEVEL_COLORS] = use }
     suspend fun setAppThemeIndex(index: Int) = context.dataStore.edit { it[APP_THEME_INDEX] = index }
+    suspend fun setHideOnLockscreen(hide: Boolean) = context.dataStore.edit { it[HIDE_ON_LOCKSCREEN] = hide }
+    suspend fun setAlertFullBattery(alert: Boolean) = context.dataStore.edit { it[ALERT_FULL_BATTERY] = alert }
+    suspend fun setAlertLowBattery(alert: Boolean) = context.dataStore.edit { it[ALERT_LOW_BATTERY] = alert }
     
     suspend fun setUseRingMode(use: Boolean) = context.dataStore.edit { it[USE_RING_MODE] = use }
     suspend fun setRingX(x: Int) = context.dataStore.edit { it[RING_X] = x }
@@ -81,7 +89,6 @@ class SettingsRepository(private val context: Context) {
         thickness: Int,
         transparency: Float,
         gradient: Int,
-        animation: Int,
         dynamicColors: Boolean,
         ringMode: Boolean
     ) {
@@ -89,7 +96,6 @@ class SettingsRepository(private val context: Context) {
             prefs[SAVED_THICKNESS] = thickness
             prefs[SAVED_TRANSPARENCY] = transparency
             prefs[SAVED_GRADIENT] = gradient
-            prefs[SAVED_ANIMATION] = animation
             prefs[SAVED_DYNAMIC_COLORS] = dynamicColors
             prefs[SAVED_RING_MODE] = ringMode
         }
@@ -100,7 +106,6 @@ class SettingsRepository(private val context: Context) {
             prefs[SAVED_THICKNESS]?.let { prefs[BAR_THICKNESS] = it }
             prefs[SAVED_TRANSPARENCY]?.let { prefs[BAR_TRANSPARENCY] = it }
             prefs[SAVED_GRADIENT]?.let { prefs[SELECTED_GRADIENT_INDEX] = it }
-            prefs[SAVED_ANIMATION]?.let { prefs[CHARGING_ANIMATION_INDEX] = it }
             prefs[SAVED_DYNAMIC_COLORS]?.let { prefs[USE_DYNAMIC_COLORS] = it }
             prefs[SAVED_RING_MODE]?.let { prefs[USE_RING_MODE] = it }
         }

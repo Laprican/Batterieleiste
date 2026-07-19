@@ -24,9 +24,6 @@ class SettingsViewModel(private val repository: SettingsRepository) : ViewModel(
     val selectedGradientIndex: StateFlow<Int> = repository.selectedGradientIndex
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), 0)
 
-    val chargingAnimationIndex: StateFlow<Int> = repository.chargingAnimationIndex
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), 0)
-
     val barPosition: StateFlow<Int> = repository.barPosition
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), 0)
 
@@ -36,8 +33,20 @@ class SettingsViewModel(private val repository: SettingsRepository) : ViewModel(
     val useNotchHandling: StateFlow<Boolean> = repository.useNotchHandling
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
 
+    val useLevelColors: StateFlow<Boolean> = repository.useLevelColors
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
+
     val appThemeIndex: StateFlow<Int> = repository.appThemeIndex
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), 0)
+
+    val hideOnLockscreen: StateFlow<Boolean> = repository.hideOnLockscreen
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
+
+    val alertFullBattery: StateFlow<Boolean> = repository.alertFullBattery
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
+
+    val alertLowBattery: StateFlow<Boolean> = repository.alertLowBattery
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
         
     // Ring Mode
     val useRingMode: StateFlow<Boolean> = repository.useRingMode
@@ -68,24 +77,42 @@ class SettingsViewModel(private val repository: SettingsRepository) : ViewModel(
         viewModelScope.launch { repository.setSelectedGradientIndex(index) }
     }
 
-    fun setChargingAnimationIndex(index: Int) {
-        viewModelScope.launch { repository.setChargingAnimationIndex(index) }
-    }
-
     fun setBarPosition(position: Int) {
         viewModelScope.launch { repository.setBarPosition(position) }
     }
 
     fun setUseDynamicColors(use: Boolean) {
-        viewModelScope.launch { repository.setUseDynamicColors(use) }
+        viewModelScope.launch { 
+            repository.setUseDynamicColors(use)
+            // Falls wir in den Gradient-Modus wechseln und der Index über 7 ist, zurücksetzen
+            if (use && selectedGradientIndex.value >= 8) {
+                repository.setSelectedGradientIndex(0)
+            }
+        }
     }
 
     fun setUseNotchHandling(use: Boolean) {
         viewModelScope.launch { repository.setUseNotchHandling(use) }
     }
 
+    fun setUseLevelColors(use: Boolean) {
+        viewModelScope.launch { repository.setUseLevelColors(use) }
+    }
+
     fun setAppThemeIndex(index: Int) {
         viewModelScope.launch { repository.setAppThemeIndex(index) }
+    }
+
+    fun setHideOnLockscreen(hide: Boolean) {
+        viewModelScope.launch { repository.setHideOnLockscreen(hide) }
+    }
+
+    fun setAlertFullBattery(alert: Boolean) {
+        viewModelScope.launch { repository.setAlertFullBattery(alert) }
+    }
+
+    fun setAlertLowBattery(alert: Boolean) {
+        viewModelScope.launch { repository.setAlertLowBattery(alert) }
     }
     
     fun setUseRingMode(use: Boolean) {
@@ -111,7 +138,6 @@ class SettingsViewModel(private val repository: SettingsRepository) : ViewModel(
                     repository.setBarThickness(4)
                     repository.setBarTransparency(1.0f)
                     repository.setSelectedGradientIndex(2) // Green
-                    repository.setChargingAnimationIndex(1)
                     repository.setUseDynamicColors(false)
                     repository.setUseRingMode(false)
                 }
@@ -119,7 +145,6 @@ class SettingsViewModel(private val repository: SettingsRepository) : ViewModel(
                     repository.setBarThickness(5)
                     repository.setBarTransparency(1.0f)
                     repository.setSelectedGradientIndex(1) // Blue
-                    repository.setChargingAnimationIndex(2)
                     repository.setUseDynamicColors(false)
                     repository.setUseRingMode(false)
                 }
@@ -127,7 +152,6 @@ class SettingsViewModel(private val repository: SettingsRepository) : ViewModel(
                     repository.setBarThickness(6)
                     repository.setBarTransparency(1.0f)
                     repository.setSelectedGradientIndex(6) // Pink
-                    repository.setChargingAnimationIndex(1)
                     repository.setUseDynamicColors(false)
                     repository.setUseRingMode(false)
                 }
@@ -135,7 +159,6 @@ class SettingsViewModel(private val repository: SettingsRepository) : ViewModel(
                     repository.setBarThickness(6)
                     repository.setBarTransparency(0.9f)
                     repository.setSelectedGradientIndex(5) // Purple
-                    repository.setChargingAnimationIndex(1)
                     repository.setUseDynamicColors(false)
                     repository.setUseRingMode(false)
                 }
@@ -158,7 +181,6 @@ class SettingsViewModel(private val repository: SettingsRepository) : ViewModel(
             barThickness.value,
             barTransparency.value,
             selectedGradientIndex.value,
-            chargingAnimationIndex.value,
             useDynamicColors.value,
             useRingMode.value
         )

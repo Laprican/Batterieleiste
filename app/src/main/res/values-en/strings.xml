@@ -1,0 +1,53 @@
+<resources>
+    <string name="app_name">Battery Bar</string>
+    <string name="dashboard_title">Battery Bar</string>
+    <string name="settings_gear">Settings</string>
+    <string name="nav_activation">Activation &amp; Stability</string>
+    <string name="nav_bar_style">Bar Style &amp; Appearance</string>
+    <string name="nav_app_theme">App Design</string>
+    <string name="battery_status_charging">Charging</string>
+    <string name="battery_status_unknown">Unknown</string>
+    <string name="battery_health_good">Good</string>
+    <string name="remaining_calculating">Calculating...</string>
+
+    <string name="activation_title">Activation</string>
+    <string name="service_activate">Activate Service</string>
+    <string name="service_running">Running in background</string>
+    <string name="service_stopped">Service is stopped</string>
+    <string name="permissions_header">Permissions</string>
+    <string name="perm_overlay_title">Overlay</string>
+    <string name="perm_overlay_desc">Allows drawing over other apps</string>
+    <string name="perm_notif_title">Notifications</string>
+    <string name="perm_notif_desc">Keeps the service stable in background</string>
+    <string name="perm_battery_title">Battery Optimization</string>
+    <string name="perm_battery_desc">Prevents the system from closing the app</string>
+
+    <string name="app_theme_title">App Design</string>
+    <string name="app_theme_desc">Choose a theme for the app UI:</string>
+    <string name="theme_dark">Dark</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_ocean">Ocean</string>
+    <string name="theme_forest">Forest</string>
+    <string name="preview_label">Preview</string>
+
+    <string name="bar_style_title">Bar Style</string>
+    <string name="presets_header">Presets</string>
+    <string name="mode_colors_header">Mode &amp; Colors</string>
+    <string name="ring_mode_label">Ring Mode (Camera)</string>
+    <string name="dynamic_colors_label">Dynamic Colors</string>
+    <string name="notch_handling_label">Notch Handling</string>
+    <string name="position_header">Position</string>
+    <string name="pos_top">Top</string>
+    <string name="pos_bottom">Bottom</string>
+    <string name="metrics_header">Metrics &amp; Visibility</string>
+    <string name="thickness_label">Bar Thickness</string>
+    <string name="transparency_label">Transparency</string>
+
+    <string name="alerts_header">Battery Alerts</string>
+    <string name="alert_full_label">Fully Charged Alert (100%)</string>
+    <string name="alert_low_label">Low Battery Alert (15%)</string>
+    <string name="auto_hide_header">Auto-Hide</string>
+    <string name="hide_lockscreen_label">Hide on Lockscreen</string>
+
+    <string name="back">Back</string>
+</resources>

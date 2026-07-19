@@ -13,9 +13,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.batterieleiste.data.SettingsRepository
-import com.example.batterieleiste.ui.SettingsScreen
-import com.example.batterieleiste.ui.SettingsViewModel
+import com.example.batterieleiste.ui.*
 import com.example.batterieleiste.ui.theme.BatterieleisteTheme
 
 /**
@@ -41,6 +43,7 @@ class MainActivity : ComponentActivity() {
             BatterieleisteTheme {
                 val viewModel: SettingsViewModel = viewModel(factory = factory)
                 val isServiceEnabled by viewModel.isServiceEnabled.collectAsStateWithLifecycle()
+                val navController = rememberNavController()
 
                 // Reactively manage the BatteryForegroundService based on settings and permissions
                 LaunchedEffect(isServiceEnabled) {
@@ -57,8 +60,20 @@ class MainActivity : ComponentActivity() {
                     }
                 }
 
-                // Render the main Bento dashboard
-                SettingsScreen(viewModel = viewModel)
+                NavHost(navController = navController, startDestination = "dashboard") {
+                    composable("dashboard") {
+                        DashboardScreen(viewModel = viewModel, navController = navController)
+                    }
+                    composable("activation") {
+                        ActivationScreen(viewModel = viewModel, onBack = { navController.popBackStack() })
+                    }
+                    composable("app_theme") {
+                        AppThemeScreen(viewModel = viewModel, onBack = { navController.popBackStack() })
+                    }
+                    composable("bar_style") {
+                        BarStyleScreen(viewModel = viewModel, onBack = { navController.popBackStack() })
+                    }
+                }
             }
         }
     }
